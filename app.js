@@ -1,11 +1,11 @@
 const express = require('express')
 const methodOverride = require('method-override')
 const app = express()
-
+const port = process.env.PORT || 3000;
 var exphbs = require('express-handlebars');
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rotten-potatoes', { useNewUrlParser: true });
 
 // INITIALIZE BODY-PARSER AND ADD IT TO APP
 const bodyParser = require('body-parser');
@@ -24,6 +24,9 @@ const reviews = require('./controllers/reviews')(app);
 app.listen(3000, () => {
   console.log('App listening on port 3000!')
 });
+
+
+app.listen(port);
 
 module.exports = app;
 
